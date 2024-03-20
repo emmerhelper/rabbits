@@ -156,7 +156,8 @@ Class MainGUI extends Gui {
                   this.listView.Modify(params[2],"col2",input.Value)
             }
             else this.listView.Modify(params[2],"col2","❌")
-                        
+                  
+            this.listView.ModifyCol(2, "AutoHdr")
             
       }
 

@@ -146,3 +146,13 @@ sapConnect(systemName:=false,instance:=0){
                   }
             }
       }
+
+      openStudentInStudentFile(session, studentNumber){
+
+            session.startTransaction("PIQST00")
+            userArea := session.findByID("wnd[0]/usr")
+            findTextElement(userArea,"PIQST00-STUDENT12").Text := studentNumber
+            session.findById("wnd[0]").sendVKey(0)
+            return userArea
+
+      }

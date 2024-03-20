@@ -156,31 +156,37 @@ class student extends Object {
       Register(){
 
             session := sapConnect(this.systemName,this.session)
-            session.startTransaction("PIQST00")
-            userArea := session.findByID("wnd[0]/usr")
-            findTextElement(userArea,"PIQST00-STUDENT12").Text := this.number
-            session.findById("wnd[0]").sendVKey(0)
+            userArea := openStudentInStudentFile(session, this.number)
+
             selectStudentFileTab(userArea,"Admission")
             userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].pressToolbarContextButton("PB_ADM_CREATE")
             userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].selectContextMenuItem("PB_ADM_APPLY")
             userArea1 := session.findByID("wnd[1]/usr")
             findTextElement(userArea1,"PIQSTREGDIAL-SC_SHORT").Text := IniRead("config.ini","Register","programOfStudy")
             session.findById("wnd[1]").sendVKey(0)
+
+            ;; Set registration period, type and category, otherwise study routes won't work
             userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Key := 1
+            userArea1.findByName("PIQSTADM-ADM_ENRCATEG","GuiComboBox").Key := "01"
+            userArea1.findByName("PIQSTADM-ADM_CATEG","GuiComboBox").Key := "01"
+
+
+
             session.findById("wnd[1]/tbar[0]/btn[11]").press()
       }
 
       Admit(){
 
             session := sapConnect(this.systemName,this.session)
-            session.startTransaction("PIQST00")
-            userArea := session.findByID("wnd[0]/usr")
-            findTextElement(userArea,"PIQST00-STUDENT12").Text := this.number
-            session.findById("wnd[0]").sendVKey(0)
+            userArea := openStudentInStudentFile(session, this.number)
+
             selectStudentFileTab(userArea,"Admission")
             userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].pressToolbarButton("PB_ADM_DETAIL")
             session.findById("wnd[0]/usr/subAUDIT_PROFILE_DATA:SAPLHRPIQ00AUDITFORMS_PROFDIAL:0100/cntlC_CONT_PROFILE/shellcont/shell/shellcont[1]/shell[0]").pressButton("FC_GREEN")
-            session.findById("wnd[0]").sendVKey(11)
+            while (session.findByID("wnd[0]/sbar").text != "Data was saved"){
+                  session.findById("wnd[0]").sendVKey(11)
+
+            }
             session.findById("wnd[0]/tbar[1]/btn[13]").press()
             session.findById("wnd[1]/usr/btnSPOP-OPTION1").press()
 
