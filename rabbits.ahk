@@ -38,8 +38,13 @@ Class MainGUI extends Gui {
             this.nationality := mainWindow.AddDropDownList("w182 choose" . this.ini.Nationality . " vNationality",getNationalities())
             mainWindow.AddText(,"Amount to generate: ")
             mainWindow.Add("Edit", "w182")
+            
             count := mainWindow.Add("UpDown", "w182 vCount range1-160", this.ini.Amount_To_Generate)
-            this.generateButton := mainWindow.AddButton("center w182","Generate")
+            mainWindow.AddText(,"Process new students: ")
+
+            this.processStudentsAfter := mainWindow.AddCheckbox("x+1 vafterGeneration")
+
+            this.generateButton := mainWindow.AddButton("xs center w182 h60","Generate")
       }
 
       addStudentsSection(){
@@ -47,7 +52,7 @@ Class MainGUI extends Gui {
             mainWindow.AddText("ym","Students")
             mainWindow.SetFont("w100")
             
-            this.studentNumbers := mainWindow.AddEdit("r13 w182 number -wrap")
+            this.studentNumbers := mainWindow.AddEdit("r11 w182 number -wrap")
             
       }
 
@@ -55,8 +60,6 @@ Class MainGUI extends Gui {
             mainWindow.SetFont("w600")
             mainWindow.AddText("ym section","Processing")
             mainWindow.SetFont("w100")
-            mainWindow.AddText(,"Process newly generated students: ")
-            this.processStudentsAfter := mainWindow.AddCheckbox("x+1 vafterGeneration")
             
             this.action := mainWindow.AddDropDownList("xs choose1 vAction",getActions())
             this.addMyButton := mainWindow.AddButton("x+10 w120","Add")
@@ -74,14 +77,19 @@ Class MainGUI extends Gui {
       addOptionsSection(){
 
             mainWindow.SetFont("w600")
-            mainWindow.AddText("ym","Options")
+            mainWindow.AddText("ym section","Options")
             mainWindow.SetFont("w100")
+
+
             mainWindow.AddText(,"Max sessions: ")
             mainWindow.Add("Edit", "w182")
             sessions := mainWindow.Add("UpDown", "w182 vsessions range1-16", this.ini.Max_Sessions)
             
-            mainWindow.AddText(,"Open configuration file: ")
+
+            
+            mainWindow.AddText("xs","Open configuration file: ")
             this.SettingsButton := mainWindow.AddButton("w182","Settings")
+ 
 
 
       }
