@@ -151,4 +151,22 @@ class student extends Object {
 
 
       }
+
+      
+      Register(){
+
+            session := sapConnect(this.systemName,this.session)
+            session.startTransaction("PIQST00")
+            userArea := session.findByID("wnd[0]/usr")
+            findTextElement(userArea,"PIQST00-STUDENT12").Text := this.number
+            session.findById("wnd[0]").sendVKey(0)
+            selectStudentFileTab(userArea,"Admission")
+            userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].pressToolbarContextButton("PB_ADM_CREATE")
+            userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].selectContextMenuItem("PB_ADM_APPLY")
+            userArea1 := session.findByID("wnd[1]/usr")
+            findTextElement(userArea1,"PIQSTREGDIAL-SC_SHORT").Text := IniRead("config.ini","Register","programOfStudy")
+            session.findById("wnd[1]").sendVKey(0)
+            userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Key := 1
+            session.findById("wnd[1]/tbar[0]/btn[11]").press()
+      }
 }
