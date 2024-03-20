@@ -149,7 +149,7 @@ Class MainGUI extends Gui {
             }
 
             ;; Ask for a new sort on checking/double click
-            input := InputBox("Enter value","Enter Value")
+            input := InputBox(,"Enter sort order")
             
             if (input.result = "OK") && isInteger(input.Value){
                   this.listView.Modify(params[2],"col2",input.Value)
