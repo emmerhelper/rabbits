@@ -169,4 +169,20 @@ class student extends Object {
             userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Key := 1
             session.findById("wnd[1]/tbar[0]/btn[11]").press()
       }
+
+      Admit(){
+
+            session := sapConnect(this.systemName,this.session)
+            session.startTransaction("PIQST00")
+            userArea := session.findByID("wnd[0]/usr")
+            findTextElement(userArea,"PIQST00-STUDENT12").Text := this.number
+            session.findById("wnd[0]").sendVKey(0)
+            selectStudentFileTab(userArea,"Admission")
+            userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].pressToolbarButton("PB_ADM_DETAIL")
+            session.findById("wnd[0]/usr/subAUDIT_PROFILE_DATA:SAPLHRPIQ00AUDITFORMS_PROFDIAL:0100/cntlC_CONT_PROFILE/shellcont/shell/shellcont[1]/shell[0]").pressButton("FC_GREEN")
+            session.findById("wnd[0]").sendVKey(11)
+            session.findById("wnd[0]/tbar[1]/btn[13]").press()
+            session.findById("wnd[1]/usr/btnSPOP-OPTION1").press()
+
+      }
 }

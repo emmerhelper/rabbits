@@ -134,6 +134,7 @@ Class MainGUI extends Gui {
             }
             FileAppend(export,Path,)
             Run(path)
+            this.reportWindow.hide()
 
       }
 
@@ -253,6 +254,8 @@ Class MainGUI extends Gui {
       ;; Generate as many students as requested
 
             this.contents := mainWindow.Submit(false)
+
+            this.studentNumbers.value := ""
 
             getSessionInfo()
             
