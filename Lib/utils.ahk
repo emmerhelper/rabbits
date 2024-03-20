@@ -129,9 +129,17 @@ sapConnect(systemName:=false,instance:=0){
 
       selectStudentFileTab(userArea,name){
             
+            ;; Tab = Student File, DETLATAB = Student Master Data 
+            if userArea.findByName("TAB01", "GuiTab"){
+                  tabPrefix := "TAB"
+            } else if userArea.findByName("DETLTAB01","GuiTab"){
+                  tabPrefix := "DETLTAB"
+            }
+
+            ;; Look for the tab with the requested name
             while true {
                   tabNumber := Format("{:02}",A_Index)
-                  tab := userArea.findByName("DETLTAB" . tabNumber,"GuiTab")
+                  tab := userArea.findByName(tabPrefix . tabNumber,"GuiTab")             
                   if tab.Text = name {
                         tab.select()
                         return 
