@@ -47,7 +47,7 @@ Class MainGUI extends Gui {
             mainWindow.AddText("ym","Students")
             mainWindow.SetFont("w100")
             
-            this.studentNumbers := mainWindow.AddEdit("r11 w182 number -wrap")
+            this.studentNumbers := mainWindow.AddEdit("r13 w182 number -wrap")
             
       }
 
@@ -56,15 +56,16 @@ Class MainGUI extends Gui {
             mainWindow.AddText("ym section","Processing")
             mainWindow.SetFont("w100")
             mainWindow.AddText(,"Process newly generated students: ")
-      
             this.processStudentsAfter := mainWindow.AddCheckbox("x+1 vafterGeneration")
             
-            this.listView := mainWindow.AddListView("xs r5 checked w310",["Process","Order"])
-            this.listView.Add(,"Register","❌")
-            this.listView.Add(,"Admit","❌")
-            this.listView.Add(,"ZPIQSU01","❌")
-            this.listView.Add(,"Set_Home_Student","❌")
-            this.listView.ModifyCol()
+            this.action := mainWindow.AddDropDownList("xs choose1 vAction",getActions())
+            this.addMyButton := mainWindow.AddButton("x+10 w120","Add")
+
+
+            this.listView := mainWindow.AddListView("xs r5 checked w310",["Process","Order","Value"])
+
+            this.listView.ModifyCol(1, "AutoHdr")
+
 
             this.processButton := mainWindow.AddButton("center w310","Process")
             
@@ -109,18 +110,52 @@ Class MainGUI extends Gui {
       this.SettingsButton.onEvent("Click",settingsFile)
       this.processButton.onEvent("Click",runProcesses)
       this.processStudentsAfter.OnEvent("Click",disableProcessButton)
-      this.listView.OnEvent("DoubleClick", listViewSortChange)
-      this.listView.OnEvent("ItemCheck", listViewSortChange)
+      this.listView.OnEvent("DoubleClick", listViewChangeValue)
+      this.listView.OnEvent("ContextMenu", listViewDelete)
 
+      this.listView.OnEvent("ItemCheck", listViewSortChange)
+      this.addMyButton.OnEvent("Click", addToListView)
 
       mainWindow.OnEvent("Close",Quit)
 
       }
 
 
+      
       quit(*){
       ;; Close the app when we close the window
             ExitApp
+      }
+
+      addToListView(params*){
+
+            this.contents := mainWindow.Submit(false)
+            try {
+                  parameter1 := iniRead("config.ini",this.contents.action,"value")
+            } catch {
+                  parameter1 := ""
+            }
+
+            sortOrder := 1
+            rowNumber := 0
+
+            loop {
+
+                  RowNumber := this.listView.GetNext(RowNumber,"C")
+                  
+                  if !RowNumber{
+                        break
+                  }
+
+                  else sortOrder := this.ListView.GetText(RowNumber,2) + 1
+
+            }
+
+            this.listView.Add("check",this.contents.action,sortOrder,parameter1) 
+            this.listView.ModifyCol(1, "Auto")
+
+
+
       }
 
 
@@ -139,7 +174,7 @@ Class MainGUI extends Gui {
       }
 
       listViewSortChange(params*){
-      ;; Double click the list view to change the value of that row
+      ;; Check the checkbox to change the sorting value of that row
 
             ;; Reset the sorting when the checkbox is unchecked
             if (params.Length = 3){
@@ -152,14 +187,30 @@ Class MainGUI extends Gui {
             ;; Ask for a new sort on checking/double click
             input := InputBox(,"Enter sort order")
             
-            if (input.result = "OK") && isInteger(input.Value){
+            if (input.result = "OK"){
                   this.listView.Modify(params[2],"col2",input.Value)
             }
             else this.listView.Modify(params[2],"col2","❌")
                   
             this.listView.ModifyCol(2, "AutoHdr")
+            this.listView.ModifyCol(2, "Sort")
             
       }
+
+      listViewDelete(obj, item, isRightClick, X, Y){
+            try obj.delete(item)      
+      }
+
+      listViewChangeValue(obj, info){
+
+            input := InputBox(,"Enter new value")
+            
+            if (input.result = "OK"){
+                  this.listView.Modify(info,"col3",input.Value)
+            }
+
+      }
+
 
       settingsFile(*){
 
@@ -199,7 +250,7 @@ Class MainGUI extends Gui {
                         break
                   }
 
-                  else resolveCommand(this.listView.GetText(RowNumber),this.listView.GetText(RowNumber,2))
+                  else resolveCommand(this.listView.GetText(RowNumber),this.listView.GetText(RowNumber,3))
 
             }
 

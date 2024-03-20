@@ -107,6 +107,14 @@ sapConnect(systemName:=false,instance:=0){
             
                   return nationalities
             }
+
+      getActions(){
+            ;; Do this smarter later.
+            
+                  actions := ["Register","Admit","ZPIQSU01","Set_Home_Student"]
+            
+                  return actions
+            }
                   
       noSAP(){
             ;; Handle not having SAP open.

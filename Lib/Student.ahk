@@ -9,8 +9,8 @@ class student extends Object {
             }
             else this.number := false 
 
-            this.residentCountry := IniRead("config.ini","Set_Home_Student","residentCountry")
-            this.residentState := IniRead("config.ini","Set_Home_Student","residentState")
+            ; this.residentCountry := IniRead("config.ini","Set_Home_Student","residentCountry")
+            ; this.residentState := IniRead("config.ini","Set_Home_Student","residentState")
 
       }
 
@@ -128,6 +128,10 @@ class student extends Object {
 
       Set_Home_Student(){
 
+            MultipleParameters := StrSplit(A_Args[6],",")
+            this.residentCountry := MultipleParameters[1]
+            this.residentState := MultipleParameters[2]
+
             session := sapConnect(this.systemName,this.session)
             session.startTransaction("PIQSTM")
             userArea := session.findByID("wnd[0]/usr")
@@ -149,7 +153,6 @@ class student extends Object {
             findTextElement(userArea,"P_STNUM").Text := this.number
             session.findById("wnd[0]").sendVKey(11)
 
-
       }
 
       
@@ -162,7 +165,7 @@ class student extends Object {
             userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].pressToolbarContextButton("PB_ADM_CREATE")
             userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].selectContextMenuItem("PB_ADM_APPLY")
             userArea1 := session.findByID("wnd[1]/usr")
-            findTextElement(userArea1,"PIQSTREGDIAL-SC_SHORT").Text := IniRead("config.ini","Register","programOfStudy")
+            findTextElement(userArea1,"PIQSTREGDIAL-SC_SHORT").Text := A_Args[6]
             session.findById("wnd[1]").sendVKey(0)
 
             ;; Set registration period, type and category, otherwise study routes won't work
