@@ -1,1 +1,1 @@
-Rabbits student generator for it.edu
+Rabbits student generator
