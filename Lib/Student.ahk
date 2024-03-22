@@ -168,9 +168,9 @@ class student extends Object {
             findTextElement(userArea1,"PIQSTREGDIAL-SC_SHORT").Text := A_Args[6]
             session.findById("wnd[1]").sendVKey(0)
 
-            ;; Set registration period, type and category, otherwise study routes won't work
+            ;; Set registration year, period, type and category, otherwise study routes won't work
             userArea1.findByName("PIQSTADM-ADM_AYEAR","GuiComboBox").Key := userArea1.findByName("PIQSTADM-ADM_AYEAR","GuiComboBox").Entries[0].Key
-            userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Key := 1
+            userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Key := userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Entries[0].Key
             userArea1.findByName("PIQSTADM-ADM_ENRCATEG","GuiComboBox").Key := "01"
             userArea1.findByName("PIQSTADM-ADM_CATEG","GuiComboBox").Key := "01"
 
