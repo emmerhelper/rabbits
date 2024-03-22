@@ -169,6 +169,7 @@ class student extends Object {
             session.findById("wnd[1]").sendVKey(0)
 
             ;; Set registration period, type and category, otherwise study routes won't work
+            userArea1.findByName("PIQSTADM-ADM_AYEAR","GuiComboBox").Key := userArea1.findByName("PIQSTADM-ADM_AYEAR","GuiComboBox").Entries[0].Key
             userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Key := 1
             userArea1.findByName("PIQSTADM-ADM_ENRCATEG","GuiComboBox").Key := "01"
             userArea1.findByName("PIQSTADM-ADM_CATEG","GuiComboBox").Key := "01"
@@ -184,11 +185,26 @@ class student extends Object {
             userArea := openStudentInStudentFile(session, this.number)
 
             selectStudentFileTab(userArea,"Admission")
-            userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].pressToolbarButton("PB_ADM_DETAIL")
+            admissionsTable := userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0]
+
+            ;; Click the correct row of the table
+            loop admissionsTable.rowCount{
+                  if (admissionsTable.getCellValue(A_Index-1,"SC_SHORT") = A_Args[6]){
+                        admissionsTable.currentCellRow := A_Index-1
+                  }
+            }
+
+            admissionsTable.pressToolbarButton("PB_ADM_DETAIL")
+
+
+
+
+
+
             session.findById("wnd[0]/usr/subAUDIT_PROFILE_DATA:SAPLHRPIQ00AUDITFORMS_PROFDIAL:0100/cntlC_CONT_PROFILE/shellcont/shell/shellcont[1]/shell[0]").pressButton("FC_GREEN")
             while (session.findByID("wnd[0]/sbar").text != "Data was saved"){
                   session.findById("wnd[0]").sendVKey(11)
-
+                  sleep 100
             }
             session.findById("wnd[0]/tbar[1]/btn[13]").press()
             session.findById("wnd[1]/usr/btnSPOP-OPTION1").press()
