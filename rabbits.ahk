@@ -1,4 +1,4 @@
-;Rabbits v1.0mainWindowr
+;Rabbits v1.0
 #Requires AutoHotkey v2.0 
 #Include lib\utils.ahk
 #SingleInstance Force
