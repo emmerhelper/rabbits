@@ -8,10 +8,6 @@ class student extends Object {
                   this.number := number
             }
             else this.number := false 
-
-            ; this.residentCountry := IniRead("config.ini","Set_Home_Student","residentCountry")
-            ; this.residentState := IniRead("config.ini","Set_Home_Student","residentState")
-
       }
 
 
@@ -27,7 +23,7 @@ class student extends Object {
                   
                   this.personalData.gender := Random(1,2)
                   this.personalData.nationality := nationality
-                  this.personalData.lastName := StrTitle(lineFromFile(nationality,"lastName"))
+                  generateLastName()
                   this.personalData.firstName := generateFirstName()
                   this.personalData.dateOFBirth := generateDateofBirth()
                   this.personalData.birthplace := lineFromFile(nationality,"city")
@@ -54,6 +50,28 @@ class student extends Object {
                         return  lineFromFile(nationality,"firstnamemale")
                   else return lineFromFile(nationality,"firstnamefemale")
       
+            }
+
+            generateLastName(){
+
+                  lastName := lineFromFile(nationality,"lastName")
+                  this.personalData.infix := ""
+
+                  if !InStr(lastName," "){
+                        this.personalData.lastName := lastName
+                        return 
+                  } else {
+                        lastNameArray := StrSplit(lastName," ")
+                        this.personalData.lastName := lastNameArray.Pop()
+                        for k, v in lastNameArray {
+                              if A_Index > 1
+                                    this.personalData.infix .= " "
+
+                              this.personalData.infix .= StrUpper(v)
+                        }
+                        msgbox this.personalData.infix
+                  }
+
             }
 
 
@@ -104,6 +122,10 @@ class student extends Object {
             userArea.findByName("P1702-GBDAT","GuiCTextField").Text := this.personalData.DateOfBirth
             userArea.findByName("P1702-NATIO","GuiComboBox").Key := this.personalData.NationalityCode
             userArea.findByName("P1702-GBORT","GuiTextField").Text := this.personalData.birthplace
+
+            if this.personalData.infix {
+                  userArea.findByName("P1702-VORSW","GuiComboBox").Key := this.personalData.infix
+            }
 
             ;; Standard Address Tab
 
