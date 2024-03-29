@@ -10,12 +10,12 @@ Class MainGUI extends Gui {
 
 
       __New(){
+
             ;;Build GUI
             mainWindow := Gui(,"Rabbits")
             readIniDefaults()
-
             AddGenerationSection()
-            AddStudentsSection()
+            AddPeopleSection()
             AddProcessingSection()
             AddOptionsSection()
             SetEventListeners()
@@ -24,10 +24,7 @@ Class MainGUI extends Gui {
 
 
       readIniDefaults(){
-            this.ini := {}
-            this.ini.Nationality := IniRead("config.ini","GUI_Defaults","Nationality")
-            this.ini.Amount_To_Generate := IniRead("config.ini","GUI_Defaults","Amount_To_Generate")
-            this.ini.Max_Sessions := IniRead("config.ini","GUI_Defaults","Max_Sessions")
+            this.ini := returnIniSectionAsObject("config","GUI_Defaults")
       }
 
       addGenerationSection(){
@@ -40,6 +37,7 @@ Class MainGUI extends Gui {
             mainWindow.Add("Edit", "w182")
             
             count := mainWindow.Add("UpDown", "w182 vCount range1-160", this.ini.Amount_To_Generate)
+           
             mainWindow.AddText(,"Process new students: ")
 
             this.processStudentsAfter := mainWindow.AddCheckbox("x+1 vafterGeneration")
@@ -47,7 +45,7 @@ Class MainGUI extends Gui {
             this.generateButton := mainWindow.AddButton("xs center w182 h60","Generate")
       }
 
-      addStudentsSection(){
+      AddPeopleSection(){
             mainWindow.SetFont("w600")
             mainWindow.AddText("ym","Students")
             mainWindow.SetFont("w100")
@@ -89,7 +87,8 @@ Class MainGUI extends Gui {
             
             mainWindow.AddText("xs","Open configuration file: ")
             this.SettingsButton := mainWindow.AddButton("w182","Settings")
- 
+            
+
 
 
       }
@@ -114,7 +113,7 @@ Class MainGUI extends Gui {
 
       setEventListeners(){
       ;; Event handling
-      this.generateButton.onEvent("Click",newStudents)
+      this.generateButton.onEvent("Click",newPeople)
       this.SettingsButton.onEvent("Click",settingsFile)
       this.processButton.onEvent("Click",runProcesses)
       this.processStudentsAfter.OnEvent("Click",disableProcessButton)
@@ -310,19 +309,15 @@ Class MainGUI extends Gui {
       
       }
 
-      newStudents(*){
+      newPeople(*){
       ;; Generate as many students as requested
 
             this.contents := mainWindow.Submit(false)
-
+            
             this.studentNumbers.value := ""
 
-            getSessionInfo()
-            
+            getSessionInfo()            
             AddReportSection()
-
-     
-
             counter := 0
 
             loop this.contents.count {
@@ -355,3 +350,12 @@ Class MainGUI extends Gui {
       }
 }
 }
+
+
+Class StaffGUI extends MainGUI {
+      
+      
+
+
+}
+

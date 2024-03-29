@@ -164,3 +164,45 @@ sapConnect(systemName:=false,instance:=0){
             return userArea
 
       }
+
+showAllParams(array){
+      ;; Nice gui for debug
+      debug := Gui(,"Props")
+      for k, v in array.OwnProps(){
+            debug.AddText(,k ": " v)
+      }
+      debug.Show
+      msgbox "showing debug"
+
+}
+
+returnIniSectionAsObject(ini,sectionName){
+
+      section := {}
+      sectionFound := false
+
+      loop read ini ".ini" {
+
+            if !A_LoopReadLine 
+                  continue 
+
+            if InStr(A_LoopReadLine,";")
+                  continue
+
+            if !sectionFound {
+                  if (A_LoopReadLine = "[" sectionName "]")
+                        sectionFound := true
+                  continue 
+            }
+
+            if InStr(A_LoopReadLine,"[")
+                  break
+
+            values := StrSplit(A_LoopReadLine,"=")
+            section.%values[1]% := values[2]
+      }
+
+      return section
+
+
+}
