@@ -1,108 +1,11 @@
-class student extends Object {
+#Include Person.ahk
 
-      __New(number:=false){
-            this.systemName := A_Args[1]
-            this.session := A_Args[2]
-            
-            if number {
-                  this.number := number
-            }
-            else this.number := false 
-      }
+class student extends person {
 
-
-      generate(nationality){
-
-            generatePersonalData()
-      
-            generateAddress()      
-
-            generatePersonalData(){
-
-                  this.personalData := {}
-                  
-                  this.personalData.gender := Random(1,2)
-                  this.personalData.nationality := nationality
-                  generateLastName()
-                  this.personalData.firstName := generateFirstName()
-                  this.personalData.dateOFBirth := generateDateofBirth()
-                  this.personalData.birthplace := lineFromFile(nationality,"city")
-                  this.personalData.nationalityCode := nationality
-            }
-
-            generateAddress() {
-
-                  this.address := {}
-
-                  this.address.HouseNumber := Random(1,149)
-                  this.address.Street := lineFromFile(nationality,"street")
-                  this.address.City := lineFromFile(nationality,"City")
-                  this.address.PostCode := generatePostCode()
-                  this.address.PhoneNumber := "06" . Random(10000000,99999999)
-                  this.address.Email := generateEmail()
-                  
-
-            }
-
-            generateFirstName(){
-
-                  if (this.personalData.gender = 1)
-                        return  lineFromFile(nationality,"firstnamemale")
-                  else return lineFromFile(nationality,"firstnamefemale")
-      
-            }
-
-            generateLastName(){
-
-                  lastName := lineFromFile(nationality,"lastName")
-                  this.personalData.infix := ""
-
-                  if !InStr(lastName," "){
-                        this.personalData.lastName := lastName
-                        return 
-                  } else {
-                        lastNameArray := StrSplit(lastName," ")
-                        this.personalData.lastName := lastNameArray.Pop()
-                        for k, v in lastNameArray {
-                              if A_Index > 1
-                                    this.personalData.infix .= " "
-
-                              this.personalData.infix .= StrUpper(v)
-                        }
-                        msgbox this.personalData.infix
-                  }
-
-            }
-
-
-            generateDateofBirth() {
-                  return Format("{:02}",Random(01,28)) "." Format("{:02}",Random(01,12)) "." Random(1980,2005) 
-            }
-
-                  
-            generatePostCode(){
-
-                  switch nationality {
-
-                  case "GB":
-                        return StrUpper(SubStr(this.address.city,1,2)) . Format("{:02}",Random(01,99)) . " " . Random(1,9) . generateLetters(2)
-                  
-                  case "NL":
-                        return Random(1000,9999) . " " . generateLetters(2)
-
-                  Default:
-                        return Random(10000,99999)
-                  }
-            }
-
-            generateEmail(){
-                  email .= this.personalData.firstName
-                  email .= "."
-                  email .= this.personalData.lastName
-                  email.= "@campus.ntt.com"
-                  return StrLower(email)
-            }
-
+      create(){
+            this.generate()
+            this.makeStudentFile()
+            this.phoneHome()
       }
 
       makeStudentFile(){
@@ -150,7 +53,7 @@ class student extends Object {
 
       Set_Home_Student(){
 
-            MultipleParameters := StrSplit(A_Args[6],",")
+            MultipleParameters := StrSplit(this.commandParameter,",")
             this.residentCountry := MultipleParameters[1]
             this.residentState := MultipleParameters[2]
 
@@ -187,7 +90,7 @@ class student extends Object {
             userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].pressToolbarContextButton("PB_ADM_CREATE")
             userArea.findByName("CONTAINER_ADM_LIST","GuiCustomControl").children[0].children[0].selectContextMenuItem("PB_ADM_APPLY")
             userArea1 := session.findByID("wnd[1]/usr")
-            findTextElement(userArea1,"PIQSTREGDIAL-SC_SHORT").Text := A_Args[6]
+            findTextElement(userArea1,"PIQSTREGDIAL-SC_SHORT").Text := this.commandParameter
             session.findById("wnd[1]").sendVKey(0)
 
             ;; Set registration year, period, type and category, otherwise study routes won't work
@@ -211,7 +114,7 @@ class student extends Object {
 
             ;; Click the correct row of the table
             loop admissionsTable.rowCount{
-                  if (admissionsTable.getCellValue(A_Index-1,"SC_SHORT") = A_Args[6]){
+                  if (admissionsTable.getCellValue(A_Index-1,"SC_SHORT") = this.commandParameter){
                         admissionsTable.currentCellRow := A_Index-1
                   }
             }
@@ -232,4 +135,9 @@ class student extends Object {
             session.findById("wnd[1]/usr/btnSPOP-OPTION1").press()
 
       }
+
+
+
+
+
 }
