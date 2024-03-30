@@ -166,7 +166,7 @@ Class rabbitsTab extends Object {
                         if !RowNumber{
                               break
                         }
-                        
+            
                         else resolveCommand(this.listView.GetText(RowNumber),this.listView.GetText(RowNumber,3))
                   }
             }
