@@ -13,9 +13,7 @@ Class MainGUI extends Gui {
 
             ;;Build GUI
             this.mainWindow := Gui(,"Rabbits")
-            
-            readIniDefaults()
-
+            this.ini := returnIniSectionAsObject("config","GUI_Defaults")
             this.tabnames := ["Student","Staff","Options"]
             this.tabs := this.mainWindow.AddTab3("Backgroundffffff",this.tabnames)
             this.tabs.onEvent("Change",resizeWindow)
@@ -27,10 +25,6 @@ Class MainGUI extends Gui {
             addOptionsSection()
             
             this.mainWindow.Show()    
-
-            readIniDefaults(){
-                  this.ini := returnIniSectionAsObject("config","GUI_Defaults")
-            }
 
             addOptionsSection(){
                   this.tabs.UseTab(3)
