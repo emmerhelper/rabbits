@@ -5,6 +5,7 @@ class person extends Object {
       __New(){
             this.systemName := A_Args[1]
             this.session := A_Args[2]
+            this.type := A_Args[4]
             this.commandParameter := A_Args[7]
             
             if IsInteger(A_Args[6]) {
@@ -113,10 +114,15 @@ class person extends Object {
       }
   
       sendNumber(){
+           
+            if this.type = "Student"
+                  target := "Edit2"
+            else target := "Edit4"
+
             communicating := true
             while communicating {
                   try {
-                        EditPaste(this.number . "`r`n","Edit2","Rabbits")
+                        EditPaste(this.number . "`r`n",target,"Rabbits")
                         communicating := false
                   }
                   catch {
@@ -129,7 +135,6 @@ class person extends Object {
             csvWait := true
             while csvWait {
                   try {
-                        WinActivate("Rabbits Report")
                         EditPaste(this.getReportString(),"Edit1","Rabbits Report")
                         csvWait := false
                   }

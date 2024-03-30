@@ -1,0 +1,5 @@
+class staff extends person {
+        
+
+
+}

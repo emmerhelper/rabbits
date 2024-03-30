@@ -6,7 +6,6 @@
 #Include lib/utils.ahk
 #Include lib/Staff.ahk
 
-
 ;; Arguments:
 ;; A_Args[1] is the system name that sap is connecting to
 ;; A_Args[2] is the session of SAP that this instance controls
