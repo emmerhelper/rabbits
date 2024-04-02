@@ -61,18 +61,17 @@ class person extends Object {
                   this.personalData.infix := ""
 
                   if !InStr(lastName," "){
-                        this.personalData.lastName := lastName
+                        this.personalData.lastName := StrTitle(lastName)
                         return 
                   } else {
                         lastNameArray := StrSplit(lastName," ")
-                        this.personalData.lastName := lastNameArray.Pop()
+                        this.personalData.lastName := StrTitle(lastNameArray.Pop())
                         for k, v in lastNameArray {
                               if A_Index > 1
                                     this.personalData.infix .= " "
 
                               this.personalData.infix .= StrUpper(v)
                         }
-                        msgbox this.personalData.infix
                   }
 
             }
@@ -134,22 +133,25 @@ class person extends Object {
       sendReport(){
             csvWait := true
             while csvWait {
-                  try {
                         EditPaste(this.getReportString(),"Edit1","Rabbits Report")
                         csvWait := false
-                  }
-                  catch {
                         sleep 100
-                  }
             }
       }
 
       getReportString(){
             report := ""
             for k, v in this.OwnProps(){
-                  report .= v ","
+                  if (IsObject(v)){
+                        for i, j in v.OwnProps(){
+                              report .= j ","
+                        }
+                  } else {
+                        report .= v ","
+                  }
             }
             report .= " `r`n"
+
             return report
       }
 }

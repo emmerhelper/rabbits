@@ -143,7 +143,7 @@ Class rabbitsTab extends Object {
             
             runProcesses(button,info){
                   ;; Run all ticked commands in the list view, in order, generating first if needed
-                  ; getSessionInfo()
+                  getSessionInfo()
                   
                   if (button.text = "Generate"){
                         resolveCommand("create",this.nationalityDropDown.Text)
@@ -173,7 +173,7 @@ Class rabbitsTab extends Object {
       
             getSessionInfo(){
                   try 
-                        openMaxSessions(rabbits.sessions.text)
+                        openMaxSessions(rabbits.sessions.value)
                   catch {
                         noSAP()
                         Exit
@@ -196,7 +196,7 @@ Class rabbitsTab extends Object {
                         this.Numbers.value := ""
                         people := []
                         rabbits.AddReportSection()
-                        loop this.count {
+                        loop this.count.value {
                               people.Push(param7)
                         }
                   } else people := StrSplit(Trim(this.numbers.value,"`r`n"),"`n") 
@@ -217,7 +217,7 @@ Class rabbitsTab extends Object {
                         session++
                         WinWait("Rabbits are working, please wait warmly 🐇")
                         
-                        if (session = rabbits.sessions.text){
+                        if (session = rabbits.sessions.value){
                               WinWaitClose("Rabbits are working, please wait warmly 🐇")
                               session := 0
                         }

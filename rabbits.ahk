@@ -29,7 +29,7 @@ Class MainGUI extends Gui {
             addOptionsSection(){
                   this.tabs.UseTab(3)
                   this.mainWindow.SetFont("w600")
-                  this.mainWindow.AddText("ym+24 x+m section","Options")
+                  this.mainWindow.AddText("ys x+m section","Options")
                   this.mainWindow.SetFont("w100")
                   this.mainWindow.AddText(,"Max sessions: ")
                   this.mainWindow.Add("Edit", "w182")
@@ -46,30 +46,35 @@ Class MainGUI extends Gui {
 
             resizeWindow(Tab,Info){
                   if tab.value = 3
-                        this.mainWindow.Move(,,230,230)
-                  else this.mainWindow.Move(,,746,302)
+                        this.mainWindow.Move(,,250,250)
+                  else this.mainWindow.Move(,,746,348)
             }
                
-            AddReportSection(){
 
-                  if WinExist("Rabbits Report"){
-                        return 
-                  }
-                  
-                  this.reportWindow := Gui(,"Rabbits Report")
-                  this.reportWindow.SetFont("w600")
-                  this.reportHeader := this.reportWindow.AddText("ym","Report")
-                  this.reportWindow.SetFont("w100")
-                  this.Report := this.reportWindow.AddEdit("r9 w300")
-                  this.ExportButton := this.reportWindow.addButton(,"Export")
-                  this.ExportButton.onEvent("Click",exportToCSV)
-      
-                  this.reportWindow.Show("Minimize")
+
+            settingsFile(*){
+                  RunWait("config.ini")
             }
+      }
+      
+      AddReportSection(){
+
+            if WinExist("Rabbits Report"){
+                  return 
+            }
+            
+            this.reportWindow := Gui(,"Rabbits Report")
+            this.reportWindow.SetFont("w600")
+            this.reportHeader := this.reportWindow.AddText("ym","Report")
+            this.reportWindow.SetFont("w100")
+            this.Report := this.reportWindow.AddEdit("r9 w1000")
+            this.ExportButton := this.reportWindow.addButton(,"Export")
+            this.ExportButton.onEvent("Click",exportToCSV)
+            this.reportWindow.Show("Minimize")
 
             exportToCSV(params*){
 
-                  Export := "Student Number,First Name,Last Name,Nationality`r`n" . this.Report.Value 
+                  Export := "City,Email,House Number,Phone Number,Postcode,Street,Nationality,Number,Birthplace,Date of Birth,First Name,Gender,Infix,Last Name,Country,Nationality,Session,Server,Type,`r`n" . this.Report.Value 
                   Path := FileSelect("S 16","Generated Students.csv")
                   try {
                         FileRead(path)
@@ -79,11 +84,8 @@ Class MainGUI extends Gui {
                   Run(path)
                   this.reportWindow.hide()
             }
-
-            settingsFile(*){
-                  RunWait("config.ini")
-            }
       }
+
 }
 
 

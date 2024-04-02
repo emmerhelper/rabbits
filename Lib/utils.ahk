@@ -162,7 +162,7 @@ sapConnect(systemName:=false,instance:=0){
 showAllParams(array){
       ;; Nice gui for debug
       debug := Gui(,"Props")
-      for k, v in array.OwnProps(){
+      for k, v in array{
             debug.AddText(,k ": " v)
       }
       debug.Show
