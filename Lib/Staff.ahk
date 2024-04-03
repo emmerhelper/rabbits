@@ -7,7 +7,7 @@ class staff extends person {
       }
 
       addNewP(){
-            ini := returnIniSectionAsObject("config.ini","New_Staff")
+            ini := returnIniSectionAsObject("config","New_Staff")
 
             session := sapConnect(this.systemName,this.session)
             session.startTransaction("PA30")   
