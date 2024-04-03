@@ -6,7 +6,9 @@ class person extends Object {
             this.systemName := A_Args[1]
             this.session := A_Args[2]
             this.type := A_Args[4]
-            this.commandParameter := A_Args[7]
+            
+            if (A_Args.Length >= 7)
+                  this.commandParameter := A_Args[7]
             
             if IsInteger(A_Args[6]) {
                   this.number := A_Args[6]
