@@ -74,7 +74,7 @@ Class MainGUI extends Gui {
 
             exportToCSV(params*){
 
-                  Export := "City,Email,House Number,Phone Number,Postcode,Street,Nationality,Number,Birthplace,Date of Birth,First Name,Gender,Infix,Last Name,Country,Nationality,Session,Server,Type,`r`n" . this.Report.Value 
+                  Export := "City,Email,House Number,Phone Number,Postcode,Street,Nationality,Number,Birthplace,Date of Birth,First Name,Form of address,Gender,Infix,Last Name,Country,Nationality,Session,Server,Type,`r`n" . this.Report.Value 
                   Path := FileSelect("S 16","Generated Students.csv")
                   try {
                         FileRead(path)

@@ -31,7 +31,9 @@ class person extends Object {
                   this.personalData.dateOFBirth := generateDateofBirth()
                   this.personalData.birthplace := lineFromFile(this.personalData.nationality,"city")
                   this.personalData.nationalityCode := this.personalData.nationality
+                  this.personalData.formOfAddress := generateFormOfAddress()
             }
+      
 
             generateAddress() {
 
@@ -74,6 +76,12 @@ class person extends Object {
                         }
                   }
 
+            }
+
+            generateFormOfAddress(){
+                  if (this.personalData.gender = 1)
+                        return "Mr."
+                  else return "Mrs."
             }
 
 

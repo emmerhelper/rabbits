@@ -147,11 +147,11 @@ Class rabbitsTab extends Object {
                   
                   if (button.text = "Generate"){
                         resolveCommand("create",this.nationalityDropDown.Text)
+                        if (!this.processAfterCheckbox.value){
+                              return 
+                        }      
                   }
 
-                  if (!this.processButton.Enabled){
-                        return 
-                  }
 
                   if !this.numbers.Value{
                         Msgbox "Add some student numbers first."

@@ -1,7 +1,7 @@
 ;; Worker v1.0
 ;; Multi-threading in AHK? That's right!
 #SingleInstance Off
-; #NoTrayIcon
+#NoTrayIcon
 #Include lib/Student.ahk
 #Include lib/utils.ahk
 #Include lib/Staff.ahk
