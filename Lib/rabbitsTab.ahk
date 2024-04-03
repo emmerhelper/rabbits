@@ -86,6 +86,11 @@ Class rabbitsTab extends Object {
                         parameter1 := ""
                   }
                   
+                  if !this.action.text{
+                        return 
+                  }
+
+                  
                   sortOrder := 1
                   rowNumber := 0
                   
