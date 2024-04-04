@@ -82,6 +82,7 @@ class student extends person {
 
       
       Register(){
+            ini := returnIniSectionAsObject("config","Register")
 
             session := sapConnect(this.systemName,this.session)
             userArea := openStudentInStudentFile(session, this.number)
@@ -94,7 +95,7 @@ class student extends person {
             session.findById("wnd[1]").sendVKey(0)
 
             ;; Set registration year, period, type and category, otherwise study routes won't work
-            userArea1.findByName("PIQSTADM-ADM_AYEAR","GuiComboBox").Key := userArea1.findByName("PIQSTADM-ADM_AYEAR","GuiComboBox").Entries[0].Key
+            userArea1.findByName("PIQSTADM-ADM_AYEAR","GuiComboBox").Key := ini.academic_year
             userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Key := userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Entries[0].Key
             userArea1.findByName("PIQSTADM-ADM_ENRCATEG","GuiComboBox").Key := "01"
             userArea1.findByName("PIQSTADM-ADM_CATEG","GuiComboBox").Key := "01"
