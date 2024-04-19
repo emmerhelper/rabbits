@@ -21,7 +21,7 @@ Class MainGUI extends Gui {
 
             this.studentTab := rabbitsTab(this,1,{Generation: true, People: true, Processing: true})
             this.staffTab := rabbitsTab(this,2,{Generation: true, People: true, Processing: false})
-            this.modulesTab := rabbitsTab(this,3,{Generation: false, People: true, Processing: true})
+            this.moduleTab := rabbitsTab(this,3,{Generation: false, People: true, Processing: true})
 
             addOptionsSection()
             

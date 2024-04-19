@@ -100,7 +100,13 @@ class student extends person {
             } catch {
             userArea1.findByName("PIQSTADM-ADM_AYEAR","GuiComboBox").Key := userArea1.findByName("PIQSTADM-ADM_AYEAR","GuiComboBox").Entries[0].Key
             }
-            userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Key := userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Entries[0].Key
+
+            try {
+                  userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Key := ini.academic_session
+            } catch {
+                  userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Key := userArea1.findByName("PIQSTADM-ADM_PERID","GuiComboBox").Entries[0].Key
+            }
+
             userArea1.findByName("PIQSTADM-ADM_ENRCATEG","GuiComboBox").Key := "01"
             userArea1.findByName("PIQSTADM-ADM_CATEG","GuiComboBox").Key := "01"
 
