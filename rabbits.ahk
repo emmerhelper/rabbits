@@ -14,20 +14,21 @@ Class MainGUI extends Gui {
             ;;Build GUI
             this.mainWindow := Gui(,"Rabbits")
             this.ini := returnIniSectionAsObject("config","GUI_Defaults")
-            this.tabnames := ["Student","Staff","Options"]
+            this.tabnames := ["Student","Staff","Module","Options"]
             this.tabs := this.mainWindow.AddTab3("Backgroundffffff",this.tabnames)
             this.tabs.onEvent("Change",resizeWindow)
             this.mainWindow.OnEvent("Close",Quit)
 
-            this.studentTab := rabbitsTab(this,1)
-            this.staffTab := rabbitsTab(this,2)
+            this.studentTab := rabbitsTab(this,1,{Generation: true, People: true, Processing: true})
+            this.staffTab := rabbitsTab(this,2,{Generation: true, People: true, Processing: false})
+            this.modulesTab := rabbitsTab(this,3,{Generation: false, People: true, Processing: true})
 
             addOptionsSection()
             
             this.mainWindow.Show()    
 
             addOptionsSection(){
-                  this.tabs.UseTab(3)
+                  this.tabs.UseTab(this.tabnames.Length)
                   this.mainWindow.SetFont("w600")
                   this.mainWindow.AddText("ys x+m section","Options")
                   this.mainWindow.SetFont("w100")
@@ -45,12 +46,18 @@ Class MainGUI extends Gui {
             }
 
             resizeWindow(Tab,Info){
-                  if tab.value = 3
-                        this.mainWindow.Move(,,250,250)
-                  else this.mainWindow.Move(,,746,348)
-            }
-               
 
+                  switch this.tabnames[tab.value] {
+                        case "Student":
+                              this.mainWindow.Move(,,746,348)
+                        case "Staff":
+                              this.mainWindow.Move(,,425,348)
+                        case "Module":
+                              this.mainWindow.Move(,,560,348)
+                        case "Options":
+                              this.mainWindow.Move(,,250,250)
+                  }
+            }
 
             settingsFile(*){
                   RunWait("config.ini")

@@ -1,17 +1,23 @@
 #Include utils.ahk
 Class rabbitsTab extends Object {
       
-      __New(rabbits,parentTab) {
-            
+      __New(rabbits,parentTab,components) {
+
             rabbits.tabs.UseTab(parentTab)
             this.parentTab := parentTab
             this.Type := rabbits.tabnames[parentTab]
             this.plural := getPlural()
+            this.components := components
+           
+            if components.Generation
+                  AddGenerationSection()
 
-            AddGenerationSection()
-            AddPeopleSection()
-            AddProcessingSection()
-            SetEventListeners()
+            if components.People
+                  AddPeopleSection()
+
+            if components.Processing
+                  AddProcessingSection()
+
             
             getPlural(){
                   if (this.type = "Staff"){
@@ -36,7 +42,14 @@ Class rabbitsTab extends Object {
                   
                   this.processAfterCheckbox := rabbits.mainWindow.AddCheckbox("x+1 vafterGeneration" this.parentTab)
                   
+                  if !this.components.Processing{
+                        this.processAfterCheckbox.Enabled := false
+                  }
+
                   this.generateButton := rabbits.mainWindow.AddButton("xs y+m center w182 h65","Generate")
+           
+                  this.generateButton.onEvent("Click",runProcesses)
+                  this.processAfterCheckbox.OnEvent("Click",disableProcessButton)
             }
             
             AddPeopleSection(){
@@ -53,9 +66,14 @@ Class rabbitsTab extends Object {
                   rabbits.mainWindow.SetFont("w100")  
                   this.action := rabbits.mainWindow.AddDropDownList("choose1 vAction" this.parentTab,getActions())
                   this.addMyButton := rabbits.mainWindow.AddButton("x+10 w120 hp","Add")
-                  this.listView := rabbits.mainWindow.AddListView("xs r6 checked w310",["Process","Order","Value"])
+                  this.listView := rabbits.mainWindow.AddListView("xs r6 checked w310",["Command","Order","Value"])
                   this.listView.ModifyCol(1, "AutoHdr")
                   this.processButton := rabbits.mainWindow.AddButton("center w310 h28","Process")
+                  this.processButton.onEvent("Click",runProcesses)
+                  this.listView.OnEvent("DoubleClick", listViewChangeValue)
+                  this.listView.OnEvent("ContextMenu", listViewDelete)
+                  this.listView.OnEvent("ItemCheck", listViewSortChange)
+                  this.addMyButton.OnEvent("Click", addToListView)
             }
 
             getActions(){
@@ -66,17 +84,6 @@ Class rabbitsTab extends Object {
                               actions := []
                   }
                   return actions
-            }
-            
-            setEventListeners(){
-                  ;; Event handling
-                  this.generateButton.onEvent("Click",runProcesses)
-                  this.processButton.onEvent("Click",runProcesses)
-                  this.processAfterCheckbox.OnEvent("Click",disableProcessButton)
-                  this.listView.OnEvent("DoubleClick", listViewChangeValue)
-                  this.listView.OnEvent("ContextMenu", listViewDelete)
-                  this.listView.OnEvent("ItemCheck", listViewSortChange)
-                  this.addMyButton.OnEvent("Click", addToListView)
             }
             
             addToListView(params*){
@@ -90,12 +97,10 @@ Class rabbitsTab extends Object {
                         return 
                   }
 
-                  
                   sortOrder := 1
                   rowNumber := 0
                   
                   loop {
-                        
                         RowNumber := this.listView.GetNext(RowNumber,"C")
                         
                         if !RowNumber{
@@ -103,7 +108,6 @@ Class rabbitsTab extends Object {
                         }
                         
                         else sortOrder := this.ListView.GetText(RowNumber,2) + 1
-                        
                   }
                   
                   this.listView.Add("check",this.action.text,sortOrder,parameter1) 
@@ -157,9 +161,8 @@ Class rabbitsTab extends Object {
                         }      
                   }
 
-
                   if !this.numbers.Value{
-                        Msgbox "Add some student numbers first."
+                        Msgbox "Add some numbers first."
                         return 
                   }
                   
@@ -197,15 +200,23 @@ Class rabbitsTab extends Object {
             
             resolveCommand(command,param7){
                   ;; Run the command on each student in as many parallel sessions as we're allowed
+                  
+                  
+                  ;; Build an array we can iterate over
                   if (command = "Create"){
+                        ;; Clear the edit box
                         this.Numbers.value := ""
+                        
                         people := []
-                        rabbits.AddReportSection()
                         loop this.count.value {
                               people.Push(param7)
                         }
-                  } else people := StrSplit(Trim(this.numbers.value,"`r`n"),"`n") 
 
+                        rabbits.AddReportSection()
+                  } else {
+                        people := StrSplit(Trim(this.numbers.value,"`r`n"),"`n") 
+                  }
+                  
                   session := 0
                   
                   for k, Number in people {

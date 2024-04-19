@@ -77,33 +77,29 @@ sapConnect(systemName:=false,instance:=0){
                   for k, v in app.children{
 
                         connection := app.children[Integer(A_Index-1)]
-      
+                        
+                        if connection.DisabledByServer
+                              continue 
+                        
                         if (connection.children[0].info.systemName = app.activeSession().info.systemName){
                               session := connection.children[Integer(0)]
                               break 
                         }
                   } 
-            
-
+                  
                   while (connection.children.length < max){
                               session.createSession()
                               sleep 500
                         }
-
             }
             
       getNationalities(){
             ;; Read all two character folders in the working directory and return them as an array.
-            
                   nationalities := []
             
                   loop files, A_WorkingDir "./Nationalities/*", "D R" {
-            
                         nationalities.Push(A_LoopFileName)
-            
                   }
-            
-                        
             
                   return nationalities
             }
@@ -112,7 +108,6 @@ sapConnect(systemName:=false,instance:=0){
                   
       noSAP(){
             ;; Handle not having SAP open.
-            
                   Msgbox("No instance of SAP was found. Check if GUI scripting is enabled on the server and in your user settings.","Rabbits")
             }
 
@@ -126,7 +121,6 @@ sapConnect(systemName:=false,instance:=0){
                   if element := userArea.findByName(name,"GuiCTextField")
                         return element 
             }
-      
       }
 
       selectStudentFileTab(userArea,name){
