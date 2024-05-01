@@ -101,7 +101,10 @@ class person extends Object {
                   
                   case "NL":
                         return Random(1000,9999) . " " . generateLetters(2)
-
+                  
+                  case "CA":
+                        return generateLetters(1) . Random(0,9) . generateLetters(1) . " " . Random(0,9) . generateLetters(1) . Random(0,9)
+           
                   Default:
                         return Random(10000,99999)
                   }
