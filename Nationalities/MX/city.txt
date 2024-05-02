@@ -1,100 +1,100 @@
-New York
-Los Angeles
-Chicago
-Houston
-Phoenix
-Philadelphia
-San Antonio
-San Diego
-Dallas
-Austin
-Jacksonville
-San Jose
-Fort Worth
-Columbus
-Charlotte
-Indianapolis
-San Francisco
-Seattle
-Denver
-Oklahoma City
-Nashville
-El Paso
-Washington
-Las Vegas
-Boston
-Portland
-Louisville
-Memphis
-Detroit
-Baltimore
-Milwaukee
-Albuquerque
-Tucson
-Fresno
-Sacramento
-Mesa
-Kansas City
-Atlanta
-Colorado Springs
-Omaha
-Raleigh
-Virginia Beach
-Long Beach
-Miami
-Oakland
-Minneapolis
-Tulsa
-Bakersfield
-Tampa
-Wichita
-Arlington
-Aurora
-New Orleans
-Cleveland
-Anaheim
-Honolulu
-Henderson
-Stockton
-Riverside
-Lexington
-Corpus Christi
-Orlando
-Irvine
-Cincinnati
-Santa Ana
-Newark
-Saint Paul
-Pittsburgh
-Greensboro
-Lincoln
-Durham
-Plano
-Anchorage
-Jersey City
-St. Louis
-Chandler
-North Las Vegas
-Chula Vista
-Buffalo
-Gilbert
-Reno
-Madison
-Fort Wayne
-Toledo
-Lubbock
-St. Petersburg
-Laredo
-Irving
-Chesapeake
-Glendale
-Winston-Salem
-Scottsdale
-Garland
-Boise
-Norfolk
-Port St. Lucie
-Spokane
-Richmond
-Fremont
-Huntsville
+﻿Mexico City
+Tijuana
+Ecatepec
+León
+Puebla
+Ciudad Juárez
+Guadalajara
+Zapopan
+Monterrey
+Nezahualcóyotl
+Chihuahua
+Mérida
+Naucalpan
+Toluca
+Cancún
+Saltillo
+Aguascalientes
+Hermosillo
+Mexicali
+San Luis Potosí
+Culiacán
+Querétaro
+Morelia
+Chimalhuacán
+Reynosa
+Torreón
+Tlalnepantla
+Acapulco
+Tlaquepaque
+Guadalupe
+Durango
+Tuxtla Gutiérrez
+Cuautitlán Izcalli
+Veracruz
+Ciudad Apodaca
+Ciudad López Mateos
+Matamoros
+General Escobedo
+Irapuato
+Xalapa
+Tonalá
+Mazatlán
+Nuevo Laredo
+San Nicolás de los Garza
+Ojo de Agua
+Xico
+Celaya
+Tepic
+Ixtapaluca
+Cuernavaca
+Villahermosa
+Ciudad Victoria
+Ensenada
+Ciudad Obregón
+Ciudad Nicolás Romero
+Soledad
+Ciudad Benito Juárez
+Playa del Carmen
+Santa Catarina
+Gómez Palacio
+Uruapan
+Los Mochis
+Pachuca
+Tampico
+Tehuacán
+San Francisco Coacalco
+Nogales
+Oaxaca
+La Paz
+Campeche
+Monclova
+García
+Chilpancingo
+Puerto Vallarta
+Tapachula
+Buenavista
+Coatzacoalcos
+Ciudad Madero
+Cabo San Lucas
+Chicoloapan
+Ciudad del Carmen
+San Cristóbal de las Casas
+Poza Rica
+San Juan del Río
+San Luis Río Colorado
+Chalco
+Jiutepec
+Piedras Negras
+Guadalupe
+Chetumal
+Miramar
+Salamanca
+Ciudad Acuña
+Manzanillo
+San Pablo de las Salinas
+Cuautla
+Zamora
+Minatitlán
+Villa de Álvarez
+Colima

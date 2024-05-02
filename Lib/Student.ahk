@@ -51,6 +51,35 @@ class student extends person {
 
       }
 
+      addRelationship(relationshipType,relationship,relatedObjectType,relatedObjectID){
+
+            session := sapConnect(this.systemName,this.session)
+            session.startTransaction("PP02")
+            userArea := session.findByID("wnd[0]/usr")
+
+            findTextElement(userArea,'PM0D1-SEARK').SetFocus()
+            session.findById("wnd[0]").sendVKey(4)
+            session.findById("wnd[1]/usr/tabsG_SELONETABSTRIP/tabpTAB003").select()
+            session.findById("wnd[1]/usr/tabsG_SELONETABSTRIP/tabpTAB003/ssubSUBSCR_PRESEL:SAPLSDH4:0220/sub:SAPLSDH4:0220/txtG_SELFLD_TAB-LOW[0,24]").text := this.number
+
+            session.findById("wnd[1]").sendVKey(0)
+            session.findById("wnd[1]").sendVKey(0)
+
+            findTextElement(userArea,'PPHDR-INFTY').text := "1001"
+            findTextElement(userArea,'PPHDR-BEGDA').text := IniRead("config.ini","Relationships","valid_from")
+
+            session.findByID("wnd[0]/tbar[1]/btn[5]").press()
+
+            findTextElement(userArea,'P1001-RSIGN').text := relationshipType
+            findTextElement(userArea,'P1001-RELAT').text := relationship
+            userArea.FindByName('P1001-SCLAS','GuiComboBox').Key := relatedObjectType
+            findTextElement(userArea,'P1001-SOBID').text := relatedObjectID
+
+            session.findById("wnd[0]").sendVKey(11)
+
+
+      }
+
       Set_Home_Student(){
 
             MultipleParameters := StrSplit(this.commandParameter,",")
@@ -145,6 +174,14 @@ class student extends person {
             session.findById("wnd[0]/tbar[1]/btn[13]").press()
             session.findById("wnd[1]/usr/btnSPOP-OPTION1").press()
 
+      }
+
+      Link_To_Advisor(){
+            this.addRelationship("B","545","P",this.commandParameter)
+      }
+
+      Link_To_Cohort(){
+            this.addRelationship("A","519","CO",this.commandParameter)
       }
 
 

@@ -79,7 +79,7 @@ Class rabbitsTab extends Object {
             getActions(){
                   switch this.Type {
                         case "Student":
-                              actions := ["Register","Admit","ZPIQSU01","Set_Home_Student"]
+                              actions := ["Register","Admit","ZPIQSU01","Set_Home_Student","Link_To_Advisor","Link_To_Cohort"]
                         Default:
                               actions := []
                   }

@@ -1,100 +1,100 @@
-New York
-Los Angeles
-Chicago
-Houston
-Phoenix
-Philadelphia
-San Antonio
-San Diego
-Dallas
-Austin
-Jacksonville
-San Jose
-Fort Worth
-Columbus
-Charlotte
-Indianapolis
-San Francisco
-Seattle
-Denver
-Oklahoma City
-Nashville
-El Paso
-Washington
-Las Vegas
-Boston
-Portland
-Louisville
-Memphis
-Detroit
-Baltimore
-Milwaukee
-Albuquerque
-Tucson
-Fresno
-Sacramento
-Mesa
-Kansas City
-Atlanta
-Colorado Springs
-Omaha
-Raleigh
-Virginia Beach
-Long Beach
-Miami
-Oakland
-Minneapolis
-Tulsa
-Bakersfield
-Tampa
-Wichita
-Arlington
-Aurora
-New Orleans
-Cleveland
-Anaheim
-Honolulu
-Henderson
-Stockton
-Riverside
-Lexington
-Corpus Christi
-Orlando
-Irvine
-Cincinnati
-Santa Ana
-Newark
-Saint Paul
-Pittsburgh
-Greensboro
-Lincoln
-Durham
-Plano
-Anchorage
-Jersey City
-St. Louis
-Chandler
-North Las Vegas
-Chula Vista
-Buffalo
-Gilbert
-Reno
-Madison
-Fort Wayne
-Toledo
-Lubbock
-St. Petersburg
-Laredo
-Irving
-Chesapeake
-Glendale
-Winston-Salem
-Scottsdale
-Garland
-Boise
-Norfolk
-Port St. Lucie
-Spokane
+﻿Toronto
+Montreal
+Calgary
+Ottawa
+Edmonton
+Winnipeg
+Mississauga
+Vancouver
+Brampton
+Hamilton
+Surrey
+Quebec City 
+Halifax 
+Laval
+London
+Markham
+Vaughan
+Gatineau
+Saskatoon 
+Kitchener
+Longueuil
+Burnaby
+Windsor
+Regina 
+Oakville
 Richmond
-Fremont
-Huntsville
+Richmond Hill
+Burlington
+Oshawa
+Sherbrooke
+Greater Sudbury
+Abbotsford
+Lévis
+Coquitlam
+Barrie
+Saguenay
+Kelowna
+Guelph
+Trois-Rivières
+Whitby
+Cambridge
+St. Catharines
+Milton
+Langley
+Kingston
+Ajax
+Waterloo
+Terrebonne
+Saanich
+St. John's 
+Thunder Bay
+Delta
+Brantford
+Chatham-Kent
+Clarington
+Red Deer
+Nanaimo
+Strathcona County
+Pickering
+Lethbridge
+Kamloops
+Saint-Jean-sur-Richelieu
+Niagara Falls
+Cape Breton
+Chilliwack
+Victoria 
+Brossard
+Maple Ridge
+North Vancouver
+Newmarket
+Repentigny
+Peterborough
+Saint-Jérôme
+Moncton 
+Drummondville
+Kawartha Lakes
+New Westminster
+Prince George
+Caledon
+Airdrie
+Wood Buffalo
+Sault Ste. Marie
+Sarnia
+Saint John
+Granby
+St. Albert
+Norfolk County
+Grande Prairie
+Medicine Hat
+Fredericton 
+Halton Hills
+Aurora
+Port Coquitlam
+Mirabel
+Blainville
+North Vancouver
+Saint-Hyacinthe
+Welland
+Belleville
+North Bay
