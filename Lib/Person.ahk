@@ -88,7 +88,7 @@ class person extends Object {
 
 
             generateDateofBirth() {
-                  return Format("{:02}",Random(01,28)) "." Format("{:02}",Random(01,12)) "." Random(1980,2005) 
+                  return Format("{:02}",Random(01,28)) "." Format("{:02}",Random(01,12)) "." Random(2005,2007) 
             }
 
                   
