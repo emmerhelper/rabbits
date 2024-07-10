@@ -57,7 +57,7 @@ Class rabbitsTab extends Object {
                   rabbits.mainWindow.AddText("ys x+m",this.plural)
                   rabbits.mainWindow.SetFont("w100")
                   
-                  this.numbers := rabbits.mainWindow.AddEdit("r11 w182 number -wrap")
+                  this.numbers := rabbits.mainWindow.AddEdit("r11 w182 -wrap")
             }
             
             addProcessingSection(){
@@ -66,11 +66,11 @@ Class rabbitsTab extends Object {
                   rabbits.mainWindow.SetFont("w100")  
                   this.action := rabbits.mainWindow.AddDropDownList("choose1 vAction" this.parentTab,getActions())
                   this.addMyButton := rabbits.mainWindow.AddButton("x+10 w120 hp","Add")
-                  this.listView := rabbits.mainWindow.AddListView("xs r6 checked w310",["Command","Order","Value"])
+                  this.listView := rabbits.mainWindow.AddListView("xs r6 checked w310",["Command","Order","Value","Max"])
                   this.listView.ModifyCol(1, "AutoHdr")
                   this.processButton := rabbits.mainWindow.AddButton("center w310 h28","Process")
                   this.processButton.onEvent("Click",runProcesses)
-                  this.listView.OnEvent("DoubleClick", listViewChangeValue)
+                  this.listView.OnEvent("Click", listViewChangeValue)
                   this.listView.OnEvent("ContextMenu", listViewDelete)
                   this.listView.OnEvent("ItemCheck", listViewSortChange)
                   this.addMyButton.OnEvent("Click", addToListView)
@@ -80,6 +80,10 @@ Class rabbitsTab extends Object {
                   switch this.Type {
                         case "Student":
                               actions := ["Register","Admit","ZPIQSU01","Set_Home_Student","Link_To_Advisor","Link_To_Cohort"]
+                        case "Staff":
+                              actions := ["Link_to_module","Delete"]
+                        case "Module":
+                              actions := ["Link_to_staff"]
                         Default:
                               actions := []
                   }
@@ -142,12 +146,52 @@ Class rabbitsTab extends Object {
                   try obj.delete(item)      
             }
             
-            listViewChangeValue(obj, info){
-                  input := InputBox(,"Enter new value")
+            listViewChangeValue(obj, rowNumber){
+                  if !rowNumber
+                        return 
+                  
+                  MouseGetPos(&mouseX,&mouseY)
 
-                  if (input.result = "OK"){
-                        this.listView.Modify(info,"col3",input.Value)
+                  rabbits.mainWindow.Opt("Disabled")
+
+                  listItemEditMenu := Gui(,this.ListView.GetText(rowNumber,1))
+                  listItemEditMenu.SetFont("s12 w600")
+                  listItemEditMenu.AddText(,"Order")
+                  listItemEditMenu.SetFont("w100")
+                  listItemEditMenu.Add("Edit")
+                  order := listItemEditMenu.Add("UpDown","w180 range1-100",this.ListView.GetText(rowNumber,2))
+                  listItemEditMenu.SetFont("s12 w600")
+                  listItemEditMenu.AddText("xs","Value")
+                  listItemEditMenu.SetFont("w100")
+                  value := listItemEditMenu.Add("Edit","w180",this.ListView.GetText(rowNumber,3))
+                  listItemEditMenu.SetFont("s12 w600")
+                  listItemEditMenu.AddText("xs","Continue after")
+                  listItemEditMenu.SetFont("w100")
+                  HP := listItemEditMenu.Add("Edit","w180 Number",this.ListView.GetText(rowNumber,4))
+                  saveButton := listItemEditMenu.AddButton("xs w180","Save")
+                  saveButton.onEvent("Click",saveListItemEdits)
+                  listItemEditMenu.OnEvent('Close',closeListItemEdits)
+                  listItemEditMenu.OnEvent('Escape',closeListItemEdits)
+
+
+                  listItemEditMenu.Show()
+                  Send("{Tab}")
+
+                  saveListItemEdits(obj,info){
+                        this.listView.Modify(rowNumber,"col2",order.Value)
+                        this.listView.Modify(rowNumber,"col3",value.Value)
+                        this.listView.Modify(rowNumber,"col4",HP.Value)
+
+
+                        closeListItemEdits()
                   }
+
+                  closeListItemEdits(*){
+                        listItemEditMenu.Destroy()
+                        rabbits.mainWindow.Opt("-Disabled")
+                        WinActivate(rabbits.mainWindow)
+                  }
+            
             }
             
             runProcesses(button,info){
@@ -175,7 +219,7 @@ Class rabbitsTab extends Object {
                               break
                         }
             
-                        else resolveCommand(this.listView.GetText(RowNumber),this.listView.GetText(RowNumber,3))
+                        resolveCommand(this.listView.GetText(RowNumber),this.listView.GetText(RowNumber,3),this.listView.GetText(RowNumber,4))                  
                   }
             }
       
@@ -198,10 +242,14 @@ Class rabbitsTab extends Object {
                   
             }
             
-            resolveCommand(command,param7){
+            resolveCommand(command,param7,HP:=0){
                   ;; Run the command on each student in as many parallel sessions as we're allowed
-                  
-                  
+                  if HP {
+                        hpFlag := true
+                  } else hpFlag := false
+
+                  originalHP := HP
+
                   ;; Build an array we can iterate over
                   if (command = "Create"){
                         ;; Clear the edit box
@@ -237,7 +285,26 @@ Class rabbitsTab extends Object {
                               WinWaitClose("Rabbits are working, please wait warmly 🐇")
                               session := 0
                         }
-                  }           
+
+                        if hpFlag {
+                              HP--
+                              if HP = 0
+                                    break
+                        }
+                  }     
+
+                  if !hpFlag 
+                        return
+
+                  people.RemoveAt(1,originalHP)
+                  newPeopleString := ""
+                  for k, people in people {
+                        newPeopleString .= people "`r`n"
+                  }
+                  this.numbers.value := newPeopleString
             } 
       }
 }
+
+#HotIf WinActive("")
+

@@ -6,11 +6,21 @@ class person extends Object {
             this.systemName := A_Args[1]
             this.session := A_Args[2]
             this.type := A_Args[4]
+
+            switch this.type {
+                  case "Student":
+                        this.objectType := "ST"
+                  case "Staff":
+                        this.objectType := "P"
+                  case "Module":
+                        this.objectType := "SM"
+            }
+      
             
             if (A_Args.Length >= 7)
                   this.commandParameter := A_Args[7]
             
-            if IsInteger(A_Args[6]) {
+            if (A_Args[6]) {
                   this.number := A_Args[6]
             }
             else this.number := false 
@@ -166,6 +176,40 @@ class person extends Object {
             report .= " `r`n"
 
             return report
+      }
+
+      addRelationship(relationshipType,relationship,relatedObjectType,relatedObjectID){
+
+            session := sapConnect(this.systemName,this.session)
+            session.startTransaction("PP02")
+            userArea := session.findByID("wnd[0]/usr")
+
+            findTextElement(userArea,'PPHDR-OTYPE').text := this.objectType
+
+            findTextElement(userArea,'PM0D1-SEARK').SetFocus()
+            session.findById("wnd[0]").sendVKey(4)
+            session.findById("wnd[1]/usr/tabsG_SELONETABSTRIP/tabpTAB003").select()
+            session.findById("wnd[1]/usr/tabsG_SELONETABSTRIP/tabpTAB003/ssubSUBSCR_PRESEL:SAPLSDH4:0220/sub:SAPLSDH4:0220/txtG_SELFLD_TAB-LOW[0,24]").text := this.number
+
+            session.findById("wnd[1]").sendVKey(0)
+            session.findById("wnd[1]").sendVKey(0)
+
+            findTextElement(userArea,'PPHDR-ISTAT').text := "1"
+            findTextElement(userArea,'PPHDR-INFTY').text := "1001"
+            findTextElement(userArea,'PPHDR-BEGDA').text := IniRead("config.ini","Relationships","valid_from")
+
+            session.findByID("wnd[0]/tbar[1]/btn[5]").press()
+
+            findTextElement(userArea,'P1001-RSIGN').text := relationshipType
+            findTextElement(userArea,'P1001-RELAT').text := relationship
+            userArea.FindByName('P1001-SCLAS','GuiComboBox').Key := relatedObjectType
+            findTextElement(userArea,'P1001-SOBID').text := relatedObjectID
+
+            session.findById("wnd[0]").sendVKey(11)
+            try session.findById("wnd[0]").sendVKey(11)
+
+
+
       }
 }
 

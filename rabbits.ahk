@@ -20,7 +20,7 @@ Class MainGUI extends Gui {
             this.mainWindow.OnEvent("Close",Quit)
 
             this.studentTab := rabbitsTab(this,1,{Generation: true, People: true, Processing: true})
-            this.staffTab := rabbitsTab(this,2,{Generation: true, People: true, Processing: false})
+            this.staffTab := rabbitsTab(this,2,{Generation: true, People: true, Processing: true})
             this.moduleTab := rabbitsTab(this,3,{Generation: false, People: true, Processing: true})
 
             addOptionsSection()
@@ -51,7 +51,7 @@ Class MainGUI extends Gui {
                         case "Student":
                               this.mainWindow.Move(,,746,348)
                         case "Staff":
-                              this.mainWindow.Move(,,425,348)
+                              this.mainWindow.Move(,,746,348)
                         case "Module":
                               this.mainWindow.Move(,,560,348)
                         case "Options":

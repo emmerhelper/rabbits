@@ -5,6 +5,7 @@
 #Include lib/Student.ahk
 #Include lib/utils.ahk
 #Include lib/Staff.ahk
+#Include lib/Module.ahk
 
 ;; Arguments:
 ;; A_Args[1] is the system name that sap is connecting to

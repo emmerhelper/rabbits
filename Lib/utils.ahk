@@ -156,8 +156,14 @@ sapConnect(systemName:=false,instance:=0){
 showAllParams(array){
       ;; Nice gui for debug
       debug := Gui(,"Props")
-      for k, v in array{
+      try {
+            for k, v in array{
             debug.AddText(,k ": " v)
+            }
+      } catch {
+            for k, v in array.OwnProps(){
+                  debug.AddText(,k ": " v)
+                  }
       }
       debug.Show
       msgbox "showing debug"
