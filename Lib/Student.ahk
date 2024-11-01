@@ -44,6 +44,8 @@ class student extends person {
             ;; Save
             session.findByID("wnd[0]/tbar[0]/btn[11]").press()
             
+            this.number := ""
+
             while !this.number{
                   sleep 100
                   try this.number := session.findByID("wnd[0]/usr/subMAINSCREEN:SAPLHRPIQ00STUDENT_NF_MD:2000/subWORKSPACE:SAPLHRPIQ00STUDENT_NF_MD:2200/subOVERVIEW:SAPLHRPIQ00STUDENT_NF_MD:1001/txtPIQ1000-STUDENT12").text 
@@ -138,9 +140,8 @@ class student extends person {
 
 
             session.findById("wnd[0]/usr/subAUDIT_PROFILE_DATA:SAPLHRPIQ00AUDITFORMS_PROFDIAL:0100/cntlC_CONT_PROFILE/shellcont/shell/shellcont[1]/shell[0]").pressButton("FC_GREEN")
-            while (session.findByID("wnd[0]/sbar").text != "Data was saved"){
+            while (session.findByID("wnd[0]/sbar").text = ""){
                   session.findById("wnd[0]").sendVKey(11)
-                  sleep 100
             }
             session.findById("wnd[0]/tbar[1]/btn[13]").press()
             session.findById("wnd[1]/usr/btnSPOP-OPTION1").press()

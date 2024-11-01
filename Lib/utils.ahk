@@ -166,8 +166,6 @@ showAllParams(array){
                   }
       }
       debug.Show
-      msgbox "showing debug"
-
 }
 
 returnIniSectionAsObject(ini,sectionName){

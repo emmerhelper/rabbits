@@ -16,7 +16,7 @@
 ;; A_Args[6] is a command parameter, could be multiple things (nationality or student number)
 ;; A_Args[7] is a command parameter, - the value of the command
 ;; Check params with following function:
-; showAllParams(A_Args)
+; showAllParams(A_Args) 
 ;; -----------------------------------------
 
 ;; Main flow ------------------------------
